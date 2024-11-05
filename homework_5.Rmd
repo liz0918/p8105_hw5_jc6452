@@ -1,0 +1,9 @@
+---
+title: "Homework 5"
+output: github_document
+---
+
+```{r library import}
+library(tidyverse)
+library(rvest)
+```
