@@ -43,3 +43,10 @@ sim_results_df =
   unnest(estimate_df)
 ```
 
+
+## Problem 3
+
+```{r}
+homicide = read.csv("data/homicide-data.csv")
+```
+
