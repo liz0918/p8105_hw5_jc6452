@@ -3,7 +3,43 @@ title: "Homework 5"
 output: github_document
 ---
 
-```{r library import}
+```{r library import, echo = FALSE, message = FALSE}
 library(tidyverse)
 library(rvest)
 ```
+## Problem 2
+```{r}
+mu = c(1,2,3,4,5,6)
+
+sim_mean_sd = function(n, mu = 0, sigma = 50) {
+  
+  sim_data = tibble(
+    x = rnorm(n, mean = mu, sd = sigma),
+  )
+  
+  sim_data |> 
+    summarize(
+      mu_hat = mean(x),
+      sigma_hat = sd(x)
+    )
+}
+
+output = vector("list", 100)
+
+for (i in 1:5000) {
+  output[[i]] = sim_mean_sd(30)
+}
+
+sim_results = bind_rows(output)
+
+sim_results_df = 
+  expand_grid(
+    sample_size = 30,
+    iter = 1:5000
+  ) |> 
+  mutate(
+    estimate_df = map(sample_size, sim_mean_sd)
+  ) |> 
+  unnest(estimate_df)
+```
+
